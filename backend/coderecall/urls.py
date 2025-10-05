@@ -17,6 +17,19 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+# To return JSON responses directly from URLs
+from django.http import JsonResponse
+
+def health(request):
+    return JsonResponse({"status": "ok"})
+
+def index(request):
+    return JsonResponse({"app": "CodeRecall", "status": "running"})
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    # Simple health check endpoint
+    path('health/', health),
+    path("", index),
 ]
